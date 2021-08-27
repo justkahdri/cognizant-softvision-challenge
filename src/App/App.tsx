@@ -1,24 +1,34 @@
-import {Box, Heading, Image, SimpleGrid, Stack, Text} from "@chakra-ui/react";
-import React from "react";
+import {Stack, SimpleGrid} from "@chakra-ui/react";
+import React, {useState} from "react";
 
-import logo from "../assets/logo.png";
+import Card from "./components/Card";
+import Header from "./components/Header";
 
 function App() {
-  return (
-    <Box as="main">
-      {/* HEADER */}
-      <Box as="header">
-        <Image alt="Softvision" src={logo} width={320} />
-        <Heading>Lets get this party started</Heading>
-      </Box>
+  const [scrollable, setScrollable] = useState(false);
 
-      {/* MAIN */}
-      <SimpleGrid columns={5} spacing={10}>
-        <Stack>
-          <Text>Hola</Text>
+  return (
+    <Stack minH="100vh" minW="100vw">
+      <Header />
+
+      {scrollable ? (
+        <Stack as="main" direction="row" px={6} spacing={10}>
+          {Array(5)
+            .fill("")
+            .map((_, title) => (
+              <Card key={title} />
+            ))}
         </Stack>
-      </SimpleGrid>
-    </Box>
+      ) : (
+        <SimpleGrid as="main" minChildWidth="200px" px={6} spacing={10}>
+          {Array(5)
+            .fill("")
+            .map((_, title) => (
+              <Card key={title} />
+            ))}
+        </SimpleGrid>
+      )}
+    </Stack>
   );
 }
 
