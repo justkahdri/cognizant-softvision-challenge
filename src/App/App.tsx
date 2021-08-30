@@ -21,11 +21,11 @@ function App() {
         </Stack>
       ) : (
         <SimpleGrid as="main" minChildWidth="200px" px={6} spacing={10}>
-          {Array(5)
-            .fill("")
-            .map((_, title) => (
-              <Card key={title} />
-            ))}
+          {["Entrevista inicial", "Entrevista técnica", "Oferta", "Asignación", "Rechazo"].map(
+            (title) => (
+              <Card key={title} title={title} />
+            ),
+          )}
         </SimpleGrid>
       )}
     </Stack>
