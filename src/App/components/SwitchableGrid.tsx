@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useContext} from "react";
 import {Stack, SimpleGrid} from "@chakra-ui/react";
 
 import api from "../../api";
+import CandidatesContext from "../../context";
 
 import Card from "./Card";
 
@@ -10,7 +11,8 @@ interface GridProps {
 }
 
 const SwitchableGrid = ({isEnabled}: GridProps) => {
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const {candidates, loadCandidates} = useContext(CandidatesContext);
+  // TODO: add stages to context
   const stages: Step[] = [
     "Entrevista inicial",
     "Entrevista técnica",
@@ -21,8 +23,9 @@ const SwitchableGrid = ({isEnabled}: GridProps) => {
 
   const moveCandidate: moveCandidateT = (id, dir) => {
     try {
-      setCandidates((oldCandidates) => {
+      loadCandidates((oldCandidates) => {
         // Fix: undefined alerts
+        // TODO: add this to context
         let shifted_can = oldCandidates.find((candidate) => candidate.id === id);
         let new_step = stages[stages.indexOf(shifted_can.step) + dir];
         const filtered = oldCandidates.filter((c) => c.id !== id);
@@ -44,8 +47,7 @@ const SwitchableGrid = ({isEnabled}: GridProps) => {
     const getData = async () => {
       const response = await api.candidates.list();
 
-      window.localStorage.setItem("cached_candidates", JSON.stringify(response));
-      setCandidates(response);
+      loadCandidates(response);
     };
 
     const cached_candidates = window.localStorage.getItem("cached_candidates");
@@ -53,9 +55,9 @@ const SwitchableGrid = ({isEnabled}: GridProps) => {
     if (!cached_candidates) {
       getData();
     } else {
-      setCandidates(JSON.parse(cached_candidates));
+      loadCandidates(JSON.parse(cached_candidates));
     }
-  }, []);
+  }, [loadCandidates]);
 
   if (!isEnabled) {
     return (
