@@ -1,47 +1,56 @@
 import React, {useState} from "react";
-import {Heading, IconButton, Stack, Text, Flex, Box} from "@chakra-ui/react";
-import {AddIcon, TriangleDownIcon, TriangleUpIcon} from "@chakra-ui/icons";
+import {Heading, Stack, Text, StackProps, Flex, Box} from "@chakra-ui/react";
+import {TriangleDownIcon, TriangleUpIcon} from "@chakra-ui/icons";
 
-interface CardProps {
+import ListItem from "./ListItem";
+import NewCandidateModal from "./NewCandidateModal";
+
+interface CardProps extends StackProps {
   title: Step;
   candidates: Candidate[];
+  handleMovement: moveCandidateT;
 }
 
-const Card = ({title, candidates}: CardProps) => {
+const Card = ({title, candidates, handleMovement, ...rest}: CardProps) => {
   const [displayAll, setDisplayAll] = useState(false);
+  const displayed = displayAll ? candidates : candidates.slice(0, 4);
 
   return (
     <Stack
       as="section"
-      bgColor="white"
-      minW="200px"
+      bgColor="background"
       p={3}
       rounded="sm"
       shadow="md"
       textAlign="start"
+      {...rest}
     >
-      <Flex align="center" justify="space-between" minH={"40px"}>
+      <Flex align="center" justify="space-between" mb={3} minH={"40px"}>
         <Heading as="h2" size="md">
           {title}
         </Heading>
-        {title == "Entrevista inicial" && (
-          <IconButton aria-label="Agregar Candidato" colorScheme="brand" icon={<AddIcon />} />
-        )}
+        {title == "Entrevista inicial" && <NewCandidateModal />}
       </Flex>
 
-      {candidates || (
-        <Text color="blackAlpha.600" textAlign="center">
+      {candidates.length ? (
+        displayed.map((candidate) => (
+          <ListItem key={candidate.id} handleMovement={handleMovement} {...candidate} />
+        ))
+      ) : (
+        <Text color="blackAlpha.600" py={10} textAlign="center">
           No hay candidatos
         </Text>
       )}
-      {candidates && candidates.length > 5 && !displayAll && (
+      {candidates && candidates.length > 4 && (
         <Box
-          _hover={{color: "brand.800"}}
+          _hover={{color: "complementary"}}
+          alignSelf="center"
           as="button"
           color="brand.500"
+          fontSize="lg"
           onClick={() => setDisplayAll((c) => !c)}
         >
-          <TriangleDownIcon />
+          {displayAll ? <TriangleUpIcon boxSize={6} /> : <TriangleDownIcon boxSize={6} />}
         </Box>
       )}
     </Stack>
