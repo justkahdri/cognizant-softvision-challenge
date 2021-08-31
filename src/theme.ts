@@ -10,7 +10,10 @@ const theme = extendTheme({
       600: "#147A96",
       800: "#276678",
     },
-    complementary: "#FF8C21",
+    complementary: {
+      200: "#ffa95e",
+      500: "#FF8C21",
+    },
     secondary: "#D3E0EA",
     background: "#F6F5F5",
   },

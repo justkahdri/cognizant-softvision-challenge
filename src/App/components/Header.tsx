@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-sort-props */
 import React from "react";
 import {Heading, Image, Stack} from "@chakra-ui/react";
 
@@ -9,9 +10,8 @@ const Header = () => {
       align="center"
       as="header"
       bgColor="secondary"
-      borderColor="complementary"
-      // eslint-disable-next-line react/jsx-sort-props
       borderTop="4px solid"
+      borderColor="complementary.500"
       direction="row"
       height="50px"
       overflow="hidden"

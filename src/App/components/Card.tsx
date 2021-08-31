@@ -43,7 +43,7 @@ const Card = ({title, candidates, handleMovement, ...rest}: CardProps) => {
       )}
       {candidates && candidates.length > 4 && (
         <Box
-          _hover={{color: "complementary"}}
+          _hover={{color: "complementary.500"}}
           alignSelf="center"
           as="button"
           color="brand.500"
