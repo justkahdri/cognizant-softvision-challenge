@@ -9,9 +9,14 @@ const Header = () => {
       align="center"
       as="header"
       bgColor="secondary"
+      borderColor="complementary"
+      // eslint-disable-next-line react/jsx-sort-props
+      borderTop="4px solid"
       direction="row"
       height="50px"
+      overflow="hidden"
       p={8}
+      shadow="sm"
       spacing={3}
       width="100%"
     >

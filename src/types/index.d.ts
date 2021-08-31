@@ -7,6 +7,8 @@ declare global {
     step: Step;
     comments: string;
   }
+
+  type moveCandidateT = (candidate_id: string, direction: -1 | 1) => void;
 }
 
 export {};

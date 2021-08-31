@@ -5,11 +5,12 @@ import "@fontsource/roboto/400.css";
 const theme = extendTheme({
   colors: {
     brand: {
-      400: "#D3E0EA",
+      200: "#68D4F2",
       500: "#1687A7",
       600: "#147A96",
       800: "#276678",
     },
+    complementary: "#FF8C21",
     secondary: "#D3E0EA",
     background: "#F6F5F5",
   },
@@ -25,7 +26,8 @@ const theme = extendTheme({
         WebkitFontSmoothing: "antialiased",
         MozOsxFontSmoothing: "grayscale",
         color: "blackAlpha.900",
-        backgroundColor: "background",
+        background:
+          "radial-gradient( circle farthest-corner at 10% 20%,  rgba(97,186,255,1) 0%, rgba(166,239,253,1) 90.1% )",
       },
     },
   },
