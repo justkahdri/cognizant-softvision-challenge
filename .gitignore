@@ -5,3 +5,5 @@ dist-ssr
 *.local
 TODO.md
 concepts
+
+.vercel
