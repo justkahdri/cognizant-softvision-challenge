@@ -8,10 +8,9 @@ import NewCandidateModal from "./NewCandidateModal";
 interface CardProps extends StackProps {
   title: Step;
   candidates: Candidate[];
-  handleMovement: moveCandidateT;
 }
 
-const Card = ({title, candidates, handleMovement, ...rest}: CardProps) => {
+const Card = ({title, candidates, ...rest}: CardProps) => {
   const [displayAll, setDisplayAll] = useState(false);
   const displayed = displayAll ? candidates : candidates.slice(0, 4);
 
@@ -33,9 +32,7 @@ const Card = ({title, candidates, handleMovement, ...rest}: CardProps) => {
       </Flex>
 
       {candidates.length ? (
-        displayed.map((candidate) => (
-          <ListItem key={candidate.id} handleMovement={handleMovement} {...candidate} />
-        ))
+        displayed.map((candidate) => <ListItem key={candidate.id} {...candidate} />)
       ) : (
         <Text color="blackAlpha.600" py={10} textAlign="center">
           No hay candidatos

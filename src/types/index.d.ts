@@ -8,12 +8,12 @@ declare global {
     comments: string;
   }
 
-  type moveCandidateT = (candidate_id: string, direction: -1 | 1) => void;
-
   type CandidatesContextT = {
     candidates: Candidate[];
     addCandidate: (name: string, comments: string) => void;
     loadCandidates: (data: Candidate[]) => void;
+    moveCandidate: (candidate_id: string, direction: -1 | 1) => void;
+    steps: Step[];
   };
 }
 
