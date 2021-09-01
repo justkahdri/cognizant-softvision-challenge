@@ -14,6 +14,7 @@ import {
   Tooltip,
   IconButton,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import {AddIcon} from "@chakra-ui/icons";
 
@@ -21,6 +22,12 @@ import CandidatesContext from "../../context";
 
 const NewCandidateModal = () => {
   const {isOpen, onOpen, onClose} = useDisclosure();
+  const formToast = useToast({
+    status: "info",
+    duration: 8000,
+    isClosable: true,
+    variant: "left-accent",
+  });
   const {addCandidate} = useContext(CandidatesContext);
 
   const nameInput = useRef<HTMLInputElement>(null);
@@ -29,10 +36,17 @@ const NewCandidateModal = () => {
 
   const handleSubmit = () => {
     if (nameInput.current?.value) {
-      addCandidate(nameInput.current.value, commentsInput.current?.value || "");
-      onClose();
+      try {
+        addCandidate(nameInput.current.value, commentsInput.current?.value || "");
+        onClose();
+      } catch (e) {
+        formToast({
+          title: "Nombre o id duplicado",
+          description: "Por favor, ingrese un nombre diferente.",
+        });
+      }
     } else {
-      window.alert("Please enter a valid name");
+      formToast({title: "Por favor ingrese un nombre válido"});
     }
   };
 

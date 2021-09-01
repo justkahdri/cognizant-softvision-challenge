@@ -21,11 +21,17 @@ export const CandidatesProvider: FC = ({children}) => {
   ];
 
   const addCandidate = (name: string, comments: string) => {
+    let id = name
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/[^\w-]+/g, "");
+
+    if (candidates.find((c) => c.id === id)) {
+      throw new Error("Duplicated id");
+    }
+
     const new_candidate = {
-      id: name
-        .toLowerCase()
-        .replace(/ /g, "-")
-        .replace(/[^\w-]+/g, ""),
+      id,
       name,
       comments,
       step: "Entrevista inicial" as Step,
