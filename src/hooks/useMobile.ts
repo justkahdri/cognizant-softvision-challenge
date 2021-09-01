@@ -11,6 +11,7 @@ const useMobile = function () {
       )
     )
       check = true;
+    //@ts-ignore
   })(navigator.userAgent || navigator.vendor || window.opera);
 
   return check;
