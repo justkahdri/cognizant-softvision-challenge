@@ -6,6 +6,7 @@ const contextDefaultValues: CandidatesContextT = {
   addCandidate: () => {},
   loadCandidates: () => {},
   moveCandidate: () => {},
+  removeCandidate: () => {},
 };
 
 const CandidatesContext = createContext<CandidatesContextT>(contextDefaultValues);
@@ -40,6 +41,10 @@ export const CandidatesProvider: FC = ({children}) => {
     setCandidates((candidates) => [...candidates, new_candidate]);
   };
 
+  const removeCandidate = (id: string) => {
+    setCandidates((candidates) => candidates.filter((c) => c.id !== id));
+  };
+
   const moveCandidate = (id: string, dir: 1 | -1) => {
     setCandidates((oldCandidates) => {
       // Fix: undefined alerts
@@ -65,6 +70,7 @@ export const CandidatesProvider: FC = ({children}) => {
         addCandidate,
         loadCandidates: setCandidates,
         moveCandidate,
+        removeCandidate,
         steps,
       }}
     >

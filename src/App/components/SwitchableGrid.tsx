@@ -12,6 +12,21 @@ interface GridProps {
 
 const SwitchableGrid = ({isEnabled}: GridProps) => {
   const {candidates, loadCandidates, steps} = useContext(CandidatesContext);
+  const scrollbarStyle = {
+    "&::-webkit-scrollbar": {
+      height: "10px",
+      // background: "rgba(0,0,0,0.1)",
+    },
+    // "&::-webkit-scrollbar-track": {
+    //   height: "50px",
+    // },
+    "&::-webkit-scrollbar-thumb": {
+      background: "white",
+      borderRadius: "24px",
+      border: "2px solid",
+      borderColor: "rgba(0,0,0,0.1)",
+    },
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -31,13 +46,21 @@ const SwitchableGrid = ({isEnabled}: GridProps) => {
 
   if (!isEnabled) {
     return (
-      <Stack as="main" direction="row" overflowX="scroll" pb={3} px={6} spacing={6}>
+      <Stack
+        as="main"
+        css={scrollbarStyle}
+        direction="row"
+        flex={1}
+        overflowX="scroll"
+        pb={3}
+        px={6}
+        spacing={6}
+      >
         {steps.map((title) => (
           <Card
             key={title}
             candidates={candidates.filter((c) => c.step == title)}
             flex={1}
-            minH="180px"
             minW={{base: "250px", sm: "300px", lg: "350px"}}
             title={title}
           />

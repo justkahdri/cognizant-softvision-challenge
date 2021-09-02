@@ -52,11 +52,13 @@ const NewCandidateModal = () => {
 
   return (
     <>
-      <Tooltip hasArrow bg="complementary.200" label="Agregar candidato">
+      <Tooltip hasArrow bg="complementary.200" label="Agregar candidato" placement="left">
         <IconButton
+          _hover={{color: "white", background: "brand.500"}}
           aria-label="Agregar Candidato"
           colorScheme="brand"
           icon={<AddIcon />}
+          variant="outline"
           onClick={onOpen}
         />
       </Tooltip>
