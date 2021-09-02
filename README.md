@@ -9,9 +9,11 @@ Debemos implementar una columna por cada uno de los pasos de nuestro proceso (`"
 El cliente nos dejó este proyecto configurado con React y SASS, pero nos dijo que podemos usar lo que queramos. También nos dejó un mock para traer los candidatos en `/api/candidates.json` y nos pidió que implementemos el método de `/api/index.ts` para que devuelva una promesa así es más fácil de implementar el backend cuando lo tengamos.
 
 También nos dijo que no era requerido, pero nos iba a pagar un importante bono por cada punto extra:
-* Tests de integración con Cypress
-* Tests unitarios con Jest y React Testing Library
-* Guardar el progreso de los candidatos en localStorage
+ > 🔜Tests de integración con Cypress
+ > 
+ > 🔜Tests unitarios con Jest y React Testing Library
+ > 
+ > ✅Guardar el progreso de los candidatos en localStorage
 
 Como el cliente no sabe de desarrollo nos pidió que despleguemos nuestra aplicación en algún lado y le mandemos un link para ver el progreso.
 
@@ -29,3 +31,9 @@ npm run dev
 
 ## Modalidad de entrega
 * Repositorio público subido a GitHub, Gitlab, Bitbucket.
+
+## Features Implementadas
+* Vista alternativa en forma de grilla especialmente pensada para dispositivos móviles.
+* Revisión de IDs duplicados.
+* Almacenamiento del progreso en localStorage.
+* Eliminación de candidatos en cualquier momento desde la pestaña que se asoma sobre el item.
