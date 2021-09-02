@@ -1,5 +1,5 @@
 import React, {useEffect, useContext} from "react";
-import {Stack, SimpleGrid} from "@chakra-ui/react";
+import {Stack, Grid} from "@chakra-ui/react";
 
 import {CandidatesContext} from "../../contexts";
 
@@ -57,11 +57,23 @@ const SwitchableGrid = ({isEnabled}: GridProps) => {
     );
   } else {
     return (
-      <SimpleGrid as="main" minChildWidth={{base: "200px", md: "280px"}} px={6} spacing={5}>
+      <Grid
+        as="main"
+        gap={5}
+        minHeight="80vh"
+        px={6}
+        templateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+        templateRows="repeat(auto-fill, 1fr)"
+      >
         {steps.map((title) => (
-          <Card key={title} candidates={candidates.filter((c) => c.step == title)} title={title} />
+          <Card
+            key={title}
+            candidates={candidates.filter((c) => c.step == title)}
+            height="100%"
+            title={title}
+          />
         ))}
-      </SimpleGrid>
+      </Grid>
     );
   }
 };

@@ -13,6 +13,7 @@ const SettingsBar = () => {
 
   return (
     <Flex
+      alignItems="center"
       direction={{base: "column", sm: "row"}}
       justifyContent="space-between"
       px={6}
