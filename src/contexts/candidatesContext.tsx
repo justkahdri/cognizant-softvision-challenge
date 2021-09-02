@@ -1,8 +1,11 @@
 import React, {createContext, useEffect, useState, FC} from "react";
 
+import api from "../api";
+
 const contextDefaultValues: CandidatesContextT = {
   candidates: [],
   steps: [],
+  loading: false,
   addCandidate: () => {},
   loadCandidates: () => {},
   moveCandidate: () => {},
@@ -13,6 +16,7 @@ const CandidatesContext = createContext<CandidatesContextT>(contextDefaultValues
 
 export const CandidatesProvider: FC = ({children}) => {
   const [candidates, setCandidates] = useState<Candidate[]>(contextDefaultValues.candidates);
+  const [loading, setLoading] = useState(false);
   const steps: Step[] = [
     "Entrevista inicial",
     "Entrevista técnica",
@@ -63,12 +67,31 @@ export const CandidatesProvider: FC = ({children}) => {
     window.localStorage.setItem("cached_candidates", JSON.stringify(candidates));
   }, [candidates]);
 
+  const loadCandidates = async (fromCloud = false) => {
+    let cached_candidates: string | null | undefined;
+
+    if (!fromCloud) {
+      cached_candidates = window.localStorage.getItem("cached_candidates");
+    }
+
+    if (cached_candidates && cached_candidates !== "[]") {
+      setCandidates(JSON.parse(cached_candidates));
+    } else {
+      setLoading(true);
+      const response = await api.candidates.list();
+
+      setCandidates(response);
+      setLoading(false);
+    }
+  };
+
   return (
     <CandidatesContext.Provider
       value={{
+        loading,
+        loadCandidates,
         candidates,
         addCandidate,
-        loadCandidates: setCandidates,
         moveCandidate,
         removeCandidate,
         steps,

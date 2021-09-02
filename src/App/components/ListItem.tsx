@@ -2,10 +2,11 @@ import React, {useContext} from "react";
 import {Stack, ScaleFade, Heading, Text, Box, IconButton, useDisclosure} from "@chakra-ui/react";
 import {ArrowLeftIcon, ArrowRightIcon, DeleteIcon} from "@chakra-ui/icons";
 
-import CandidatesContext from "../../context";
+import {CandidatesContext, SettingsContext} from "../../contexts";
 
 const ListItem = ({step, id, name, comments}: Candidate) => {
   const {moveCandidate, removeCandidate} = useContext(CandidatesContext);
+  const {editMode} = useContext(SettingsContext);
   const {isOpen, onClose} = useDisclosure({defaultIsOpen: true});
 
   const handleDelete = () => {
@@ -19,13 +20,13 @@ const ListItem = ({step, id, name, comments}: Candidate) => {
         <IconButton
           _hover={{top: "-7", background: "red.500"}}
           aria-label="Delete candidate"
-          background="brand.500"
+          background={editMode ? "red.600" : "brand.500"}
           color="white"
           icon={<DeleteIcon />}
           position="absolute"
           right="10"
           size="sm"
-          top="-1"
+          top={editMode ? "-7" : "-1"}
           transition="top ease 0.2s"
           width="50px"
           zIndex="-1"

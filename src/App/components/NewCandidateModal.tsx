@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import {AddIcon} from "@chakra-ui/icons";
 
-import CandidatesContext from "../../context";
+import {CandidatesContext} from "../../contexts";
 
 const NewCandidateModal = () => {
   const {isOpen, onOpen, onClose} = useDisclosure();

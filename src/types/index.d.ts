@@ -10,11 +10,19 @@ declare global {
 
   type CandidatesContextT = {
     candidates: Candidate[];
+    steps: Step[];
+    loading: boolean;
     addCandidate: (name: string, comments: string) => void;
-    loadCandidates: (data: Candidate[]) => void;
+    loadCandidates: (fromCloud?: boolean) => void;
     moveCandidate: (candidate_id: string, direction: -1 | 1) => void;
     removeCandidate: (candidate_id: string) => void;
-    steps: Step[];
+  };
+
+  type SettingsContextT = {
+    gridView: boolean;
+    editMode: boolean;
+    toggleGridView: () => void;
+    toggleEditMode: () => void;
   };
 }
 

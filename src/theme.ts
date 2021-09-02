@@ -11,6 +11,7 @@ const theme = extendTheme({
       800: "#276678",
     },
     complementary: {
+      50: "#ffa95e",
       200: "#ffa95e",
       500: "#FF8C21",
     },

@@ -1,27 +1,19 @@
 import {Stack} from "@chakra-ui/react";
-import React, {useState} from "react";
+import React, {useContext} from "react";
 
-import useMobile from "../hooks/useMobile";
+import {SettingsContext} from "../contexts";
 
 import Header from "./components/Header";
-import LabeledSwitch from "./components/LabeledSwitch";
+import SettingsBar from "./components/SettingsBar";
 import SwitchableGrid from "./components/SwitchableGrid";
 
 function App() {
-  const defaultView = useMobile();
-  const [gridView, setGridView] = useState(defaultView);
+  const {gridView} = useContext(SettingsContext);
 
   return (
     <Stack minH="100vh" minW="100vw">
       <Header />
-
-      <LabeledSwitch
-        colorScheme="brand"
-        defaultChecked={gridView}
-        label="Vista de grilla"
-        onChange={(e) => setGridView(e.currentTarget.checked)}
-      />
-
+      <SettingsBar />
       <SwitchableGrid isEnabled={gridView} />
     </Stack>
   );

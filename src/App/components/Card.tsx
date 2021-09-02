@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {Heading, Stack, Text, StackProps, Flex, Box, Skeleton} from "@chakra-ui/react";
 import {TriangleDownIcon, TriangleUpIcon} from "@chakra-ui/icons";
+
+import {CandidatesContext} from "../../contexts";
 
 import ListItem from "./ListItem";
 import NewCandidateModal from "./NewCandidateModal";
@@ -8,11 +10,11 @@ import NewCandidateModal from "./NewCandidateModal";
 interface CardProps extends StackProps {
   title: Step;
   candidates: Candidate[];
-  isLoading: boolean;
 }
 
-const Card = ({title, candidates, isLoading, ...rest}: CardProps) => {
+const Card = ({title, candidates, ...rest}: CardProps) => {
   const [displayAll, setDisplayAll] = useState(false);
+  const {loading} = useContext(CandidatesContext);
   const displayed = displayAll ? candidates : candidates.slice(0, 4);
 
   return (
@@ -32,7 +34,7 @@ const Card = ({title, candidates, isLoading, ...rest}: CardProps) => {
         {title == "Entrevista inicial" && <NewCandidateModal />}
       </Flex>
 
-      {isLoading ? (
+      {loading ? (
         Array(4)
           .fill("")
           .map((_, i) => <Skeleton key={i} height="56px" />)

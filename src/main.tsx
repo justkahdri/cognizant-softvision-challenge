@@ -3,14 +3,16 @@ import ReactDOM from "react-dom";
 import {ChakraProvider} from "@chakra-ui/react";
 
 import App from "./App";
-import {CandidatesProvider} from "./context";
+import {CandidatesProvider, SettingsProvider} from "./contexts";
 import customTheme from "./theme";
 
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={customTheme}>
       <CandidatesProvider>
-        <App />
+        <SettingsProvider>
+          <App />
+        </SettingsProvider>
       </CandidatesProvider>
     </ChakraProvider>
   </React.StrictMode>,

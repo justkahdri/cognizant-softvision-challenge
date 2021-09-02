@@ -1,8 +1,7 @@
-import React, {useEffect, useContext, useState} from "react";
+import React, {useEffect, useContext} from "react";
 import {Stack, SimpleGrid} from "@chakra-ui/react";
 
-import api from "../../api";
-import CandidatesContext from "../../context";
+import {CandidatesContext} from "../../contexts";
 
 import Card from "./Card";
 
@@ -12,7 +11,7 @@ interface GridProps {
 
 const SwitchableGrid = ({isEnabled}: GridProps) => {
   const {candidates, loadCandidates, steps} = useContext(CandidatesContext);
-  const [loading, setLoading] = useState(false);
+
   const scrollbarStyle = {
     "&::-webkit-scrollbar": {
       height: "10px",
@@ -30,22 +29,8 @@ const SwitchableGrid = ({isEnabled}: GridProps) => {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      const response = await api.candidates.list();
-
-      loadCandidates(response);
-      setLoading(false);
-    };
-
-    const cached_candidates = window.localStorage.getItem("cached_candidates");
-
-    if (!cached_candidates) {
-      getData();
-    } else {
-      loadCandidates(JSON.parse(cached_candidates));
-    }
-  }, [loadCandidates]);
+    loadCandidates();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!isEnabled) {
     return (
@@ -64,7 +49,6 @@ const SwitchableGrid = ({isEnabled}: GridProps) => {
             key={title}
             candidates={candidates.filter((c) => c.step == title)}
             flex={1}
-            isLoading={loading}
             minW={{base: "250px", sm: "300px", lg: "350px"}}
             title={title}
           />
@@ -75,12 +59,7 @@ const SwitchableGrid = ({isEnabled}: GridProps) => {
     return (
       <SimpleGrid as="main" minChildWidth={{base: "200px", md: "280px"}} px={6} spacing={5}>
         {steps.map((title) => (
-          <Card
-            key={title}
-            candidates={candidates.filter((c) => c.step == title)}
-            isLoading={loading}
-            title={title}
-          />
+          <Card key={title} candidates={candidates.filter((c) => c.step == title)} title={title} />
         ))}
       </SimpleGrid>
     );
