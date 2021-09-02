@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Heading, Stack, Text, StackProps, Flex, Box} from "@chakra-ui/react";
+import {Heading, Stack, Text, StackProps, Flex, Box, Skeleton} from "@chakra-ui/react";
 import {TriangleDownIcon, TriangleUpIcon} from "@chakra-ui/icons";
 
 import ListItem from "./ListItem";
@@ -8,9 +8,10 @@ import NewCandidateModal from "./NewCandidateModal";
 interface CardProps extends StackProps {
   title: Step;
   candidates: Candidate[];
+  isLoading: boolean;
 }
 
-const Card = ({title, candidates, ...rest}: CardProps) => {
+const Card = ({title, candidates, isLoading, ...rest}: CardProps) => {
   const [displayAll, setDisplayAll] = useState(false);
   const displayed = displayAll ? candidates : candidates.slice(0, 4);
 
@@ -31,13 +32,18 @@ const Card = ({title, candidates, ...rest}: CardProps) => {
         {title == "Entrevista inicial" && <NewCandidateModal />}
       </Flex>
 
-      {candidates.length ? (
+      {isLoading ? (
+        Array(4)
+          .fill("")
+          .map((_, i) => <Skeleton key={i} height="56px" />)
+      ) : candidates.length ? (
         displayed.map((candidate) => <ListItem key={candidate.id} {...candidate} />)
       ) : (
         <Text color="blackAlpha.600" py={10} textAlign="center">
           No hay candidatos
         </Text>
       )}
+
       {candidates && candidates.length > 4 && (
         <Box
           _hover={{color: "complementary.500"}}
