@@ -17,7 +17,7 @@ const SettingsBar = () => {
       direction={{base: "column", sm: "row"}}
       justifyContent="space-between"
       px={6}
-      width={{base: "100%", md: "60%", lg: "50%", xl: "40%"}}
+      width={{base: "100vw", md: "80vw", lg: "60vw", xl: "50vw"}}
     >
       <LabeledSwitch
         colorScheme="brand"

@@ -8,7 +8,7 @@ interface LabeledSwitchProps extends SwitchProps {
 const LabeledSwitch = ({label, ...rest}: LabeledSwitchProps) => {
   return (
     <FormControl alignItems="center" color="whiteAlpha.900" display="flex" width="fit-content">
-      <FormLabel htmlFor="toggle-switch" mb="0">
+      <FormLabel htmlFor="toggle-switch" mb="0" whiteSpace="nowrap">
         {label}
       </FormLabel>
       <Switch id="toggle-switch" {...rest} />
